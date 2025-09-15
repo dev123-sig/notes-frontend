@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL as CONFIG_BASE_URL } from '../config';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = CONFIG_BASE_URL || process.env.REACT_APP_API_URL || 'https://notes-backend-wheat.vercel.app';
 
 class ApiService {
   constructor() {
@@ -15,8 +16,6 @@ class ApiService {
     this.client.interceptors.response.use(
       (response) => response.data,
       (error) => {
-        // Let the calling component handle 401 errors gracefully
-        // Don't automatically redirect here
         return Promise.reject(error);
       }
     );
